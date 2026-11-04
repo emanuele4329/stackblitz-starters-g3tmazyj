@@ -1,7 +1,8 @@
 const express = require('express');
 const path = require('path');
 const produtosRoutes = require('./routes/produtosRoutes');
-const repo = require('./dados/produtosRoutes');
+const loginRoutes = require('./routes/loginRoutes'); // NOVO
+const repo = require('./dados/produtosRepositorio');
 
 const app = express();
 
@@ -9,6 +10,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/produtos', produtosRoutes);
+app.use('/login', loginRoutes); // NOVO
 
 repo.iniciar()
   .then(() => {
