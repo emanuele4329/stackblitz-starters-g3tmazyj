@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const produtosRoutes = require('./routes/produtosRoutes');
+const repo = require('./dados/produtosRoutes');
 
 const app = express();
 
@@ -9,4 +10,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/produtos', produtosRoutes);
 
-app.listen(3000, () => console.log('Servidor rodando na porta 3000'));
+repo.iniciar()
+  .then(() => {
+    app.listen(3000, () => console.log('Servidor rodando na porta 3000'));
+  })
+  .catch(erro => console.log('Erro ao abrir o banco de dados:', erro));
